@@ -105,6 +105,50 @@
       align-items: center;
       margin-bottom: 0.1vw;
     }
+    .timer-label-header {
+      color: #ffe94d;
+      font-size: 2.5vw;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-shadow:
+        -4px -4px 0 #000,
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000,
+         0 0 8px #f0e130,
+         0 0 18px #000;
+      margin-top: 0.1vw;
+      margin-bottom: 0.1vw;
+      font-family: 'MyFont', sans-serif;
+      background: rgba(20,20,20,0.07);
+      border-radius: 8px;
+      display: inline-block;
+      padding: 0.11em 0.6em 0.14em 0.6em;
+      box-sizing: border-box;
+    }
+    .timer-label-footer {
+      color: #fff;
+      font-size: 1.45vw;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: none;
+      text-shadow:
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000,
+         0 0 8px #000;
+      margin-top: 1vw;
+      margin-bottom: 0;
+      font-family: 'MyFont', sans-serif;
+      border-radius: 8px;
+      display: inline-block;
+      padding: 0.17em 1.2em 0.22em 1.2em;
+      box-sizing: border-box;
+      max-width: 95vw;
+      line-height: 1.45;
+    }
     .retro-timer {
       font-size: 2.3vw;
       font-weight: 900;
@@ -213,43 +257,94 @@
          0 0 12px #f0e130,
          0 0 30px #fff3;
     }
-    @keyframes flashYellowWhite {
-      0%, 100% {
-        color: #fff;
-        text-shadow:
-          -8px -8px 0 #000,
-           8px -8px 0 #000,
-          -8px  8px 0 #000,
-           8px  8px 0 #000,
-           0 0 60px #ffe94d,
-           0 2px 2px #fff5,
-           0 0 12px #f0e130,
-           0 0 30px #fff3;
-        background: transparent;
-      }
-      50% {
-        color: #ffe94d;
-        text-shadow:
-          -8px -8px 0 #000,
-           8px -8px 0 #000,
-          -8px  8px 0 #000,
-           8px  8px 0 #000,
-           0 0 80px #fff,
-           0 0 30px #f0e130,
-           0 0 90px #ffe94d;
-        background: transparent;
-      }
+    .links-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2vw;
+      margin: 2vw 0 0.5vw 0;
+      z-index: 3;
+    }
+    .apogea-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffe94d;
+      border: 5px solid #000;
+      border-radius: 0;
+      padding: 0.4em 2.7em 0.4em 2.7em;
+      font-family: 'MyFont', sans-serif;
+      font-size: 2.7vw;
+      font-weight: 900;
+      color: #fff;
+      text-shadow:
+        -4px -4px 0 #000,
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000;
+      text-decoration: none;
+      box-shadow: none;
+      letter-spacing: 0.04em;
+      margin: 0;
+      transition: 
+        background 0.08s,
+        box-shadow 0.12s;
+      position: relative;
+      outline: none;
+      cursor: pointer;
+      min-width: 13vw;
+      max-width: 50vw;
+      min-height: 3.2vw;
+      border-radius: 0 !important;
+      box-sizing: border-box;
+      /* Remove blur */
+      filter: none;
+    }
+    .apogea-link-btn:active,
+    .apogea-link-btn:focus,
+    .apogea-link-btn:hover {
+      background: #fff35c;
+      color: #fff;
+      text-decoration: none;
+      outline: none;
+    }
+    .apogea-link-label {
+      font-family: 'MyFont', sans-serif;
+      font-size: 2.7vw;
+      font-weight: 900;
+      color: #fff;
+      text-shadow:
+        -4px -4px 0 #000,
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+      user-select: none;
     }
     @media (max-width: 800px) {
       .title-image { max-width: 87vw; max-height: 19vw; }
       .main-header { font-size: 5vw;}
       .retro-timer { font-size: 3.2vw;}
+      .timer-label-header { font-size: 4vw; }
+      .apogea-link-btn { font-size: 5vw; min-width: 24vw; padding: 0.6em 2.7em;}
+      .apogea-link-label { font-size: 5vw; }
+      .timer-label-footer { font-size: 2.2vw; }
       .its-up { font-size: 17vw;}
     }
     @media (max-width: 480px) {
       .title-image { max-width: 98vw; max-height: 27vw; }
       .main-header { font-size: 8vw; padding: 0.04em 0.1em;}
       .retro-timer { font-size: 4vw;}
+      .timer-label-header { font-size: 7vw; }
+      .apogea-link-btn { font-size: 8vw; min-width: 36vw; padding: 0.7em 2.7em;}
+      .apogea-link-label { font-size: 8vw; }
+      .timer-label-footer { font-size: 4vw; }
       .its-up { font-size: 23vw;}
     }
   </style>
@@ -263,13 +358,28 @@
     <div class="main-header">NEXT PLAYTEST IN</div>
     <div class="timers-wrapper" id="timers-wrapper">
       <div class="timer-section">
+        <div class="timer-label-header">1 MONTH</div>
         <div class="retro-timer" id="timer-1m"></div>
         <span class="timer-words" id="timer-1m-words"></span>
       </div>
       <div class="timer-section">
+        <div class="timer-label-header">3 MONTHS</div>
         <div class="retro-timer" id="timer-3m"></div>
         <span class="timer-words" id="timer-3m-words"></span>
       </div>
+    </div>
+    <!-- LINKS ROW -->
+    <div class="links-row">
+      <a class="apogea-link-btn" href="https://www.patreon.com/Apogea" target="_blank" rel="noopener">
+        <span class="apogea-link-label">PATREON</span>
+      </a>
+      <a class="apogea-link-btn" href="https://discord.gg/H9Pc26Exr6" target="_blank" rel="noopener">
+        <span class="apogea-link-label">DISCORD</span>
+      </a>
+    </div>
+    <!-- /LINKS ROW -->
+    <div class="timer-label-footer">
+      This is a fanmade site and does not represent an official timer. It uses estimations given from the devs on discord and will be updated accordingly.
     </div>
   </div>
   <script>
@@ -317,16 +427,16 @@
         secondsNum: seconds
       };
     }
-    // Timer targets (from 2025-06-01 UTC 00:00:00)
-    const playtestStart = new Date(Date.UTC(2025, 5, 1, 0, 0, 0));
-    const oneMonthLater = new Date(Date.UTC(2025, 6, 1, 0, 0, 0));
-    const threeMonthsLater = new Date(Date.UTC(2025, 8, 1, 0, 0, 0));
+    // Timers: 1 month and 3 months after 2025-07-01 00:00:00 UTC
+    const timerStart = new Date(Date.UTC(2025, 6, 1, 0, 0, 0)); // July is month 6 (0-based)
+    const oneMonthEnd = new Date(Date.UTC(2025, 7, 1, 0, 0, 0));  // August 1, 2025
+    const threeMonthEnd = new Date(Date.UTC(2025, 9, 1, 0, 0, 0)); // October 1, 2025
 
     function pluralLabel(val, word) {
       return val === 1 ? word : word + 's';
     }
 
-    // Timer as HTML, hiding months/days/hours/minutes if 0, labels BEFORE the numbers, singular/plural, and spacing per spec
+    // Timer as HTML, always show days if nonzero
     function formatTimer(parts) {
       let out = '';
       let any = false;
@@ -338,7 +448,7 @@
         out += block(pluralLabel(parts.months, "Month"), parts.months, 'timer-months');
         any = true;
       }
-      if ((parts.days !== "00" || any) && parts.days !== "00") {
+      if (parts.days !== "00") {
         if (any) out += colon();
         out += block(pluralLabel(parts.daysNum, "Day"), parts.days, 'timer-days');
         any = true;
@@ -381,12 +491,12 @@
         now.getUTCMinutes(),
         now.getUTCSeconds()
       ));
-      // If current time is after or equal to threeMonthsLater, show "IT'S UP"
-      if (nowUTC >= threeMonthsLater) {
+      // If current time is after or equal to threeMonthEnd, show "IT'S UP"
+      if (nowUTC >= threeMonthEnd) {
         showItsUp();
       } else {
-        setTimerElements('timer-1m', 'timer-1m-words', getTimerParts(oneMonthLater, nowUTC));
-        setTimerElements('timer-3m', 'timer-3m-words', getTimerParts(threeMonthsLater, nowUTC));
+        setTimerElements('timer-1m', 'timer-1m-words', getTimerParts(oneMonthEnd, nowUTC));
+        setTimerElements('timer-3m', 'timer-3m-words', getTimerParts(threeMonthEnd, nowUTC));
       }
     }
 
