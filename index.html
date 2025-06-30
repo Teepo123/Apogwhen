@@ -45,7 +45,7 @@
       align-items: flex-end;
       position: relative;
       margin-bottom: 0.2vw;
-      margin-top: -7vw;
+      margin-top: -3vw; /* lowered from -7vw to -3vw */
       z-index: 3;
     }
     .title-image {
@@ -268,23 +268,24 @@
     .apogea-link-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
       background: #ffe94d;
-      border: 5px solid #000;
-      border-radius: 0;
-      padding: 0.4em 2.7em 0.4em 2.7em;
+      border: 4px solid #000;
+      border-radius: 16px;
+      padding: 0.5em 1.8em 0.5em 1.3em;
       font-family: 'MyFont', sans-serif;
-      font-size: 2.7vw;
+      font-size: 2vw;
       font-weight: 900;
       color: #fff;
       text-shadow:
-        -4px -4px 0 #000,
-         4px -4px 0 #000,
-        -4px  4px 0 #000,
-         4px  4px 0 #000;
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000;
       text-decoration: none;
-      box-shadow: none;
-      letter-spacing: 0.04em;
+      box-shadow:
+        0 0 0 #000,
+        0 0 10px #ffe94d99;
+      letter-spacing: 0.02em;
       margin: 0;
       transition: 
         background 0.08s,
@@ -292,48 +293,55 @@
       position: relative;
       outline: none;
       cursor: pointer;
-      min-width: 13vw;
-      max-width: 50vw;
-      min-height: 3.2vw;
-      border-radius: 0 !important;
-      box-sizing: border-box;
-      /* Remove blur */
-      filter: none;
+      min-width: 10vw;
+      max-width: 40vw;
+      min-height: 2.7vw;
     }
     .apogea-link-btn:active,
     .apogea-link-btn:focus,
     .apogea-link-btn:hover {
-      background: #fff35c;
+      background: #ffef6e;
+      box-shadow: 0 0 0 #000, 0 0 16px #ffe94da8, 0 0 30px #0006;
       color: #fff;
       text-decoration: none;
       outline: none;
     }
+    .apogea-link-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 1.0em;
+      margin-left: 0;
+      width: 2.1vw;
+      height: 2.1vw;
+      min-width: 22px;
+      min-height: 22px;
+      max-width: 40px;
+      max-height: 40px;
+      filter:
+        drop-shadow(-1px -1px 0 #000) drop-shadow(1px 1px 0 #000);
+    }
     .apogea-link-label {
+      display: inline-block;
+      vertical-align: middle;
       font-family: 'MyFont', sans-serif;
-      font-size: 2.7vw;
+      font-size: 2vw;
       font-weight: 900;
       color: #fff;
       text-shadow:
-        -4px -4px 0 #000,
-         4px -4px 0 #000,
-        -4px  4px 0 #000,
-         4px  4px 0 #000;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0;
-      padding: 0;
-      line-height: 1.1;
-      user-select: none;
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000;
+      letter-spacing: 0.03em;
     }
     @media (max-width: 800px) {
       .title-image { max-width: 87vw; max-height: 19vw; }
       .main-header { font-size: 5vw;}
       .retro-timer { font-size: 3.2vw;}
       .timer-label-header { font-size: 4vw; }
-      .apogea-link-btn { font-size: 5vw; min-width: 24vw; padding: 0.6em 2.7em;}
-      .apogea-link-label { font-size: 5vw; }
+      .apogea-link-btn { font-size: 3.5vw; min-width: 24vw; padding: 0.6em 2em 0.6em 1.5em;}
+      .apogea-link-label { font-size: 3.5vw; }
+      .apogea-link-icon { width: 4vw; height: 4vw; }
       .timer-label-footer { font-size: 2.2vw; }
       .its-up { font-size: 17vw;}
     }
@@ -342,8 +350,9 @@
       .main-header { font-size: 8vw; padding: 0.04em 0.1em;}
       .retro-timer { font-size: 4vw;}
       .timer-label-header { font-size: 7vw; }
-      .apogea-link-btn { font-size: 8vw; min-width: 36vw; padding: 0.7em 2.7em;}
-      .apogea-link-label { font-size: 8vw; }
+      .apogea-link-btn { font-size: 6vw; min-width: 36vw; padding: 0.7em 2.5em 0.7em 2em;}
+      .apogea-link-label { font-size: 6vw; }
+      .apogea-link-icon { width: 9vw; height: 9vw; }
       .timer-label-footer { font-size: 4vw; }
       .its-up { font-size: 23vw;}
     }
@@ -371,10 +380,23 @@
     <!-- LINKS ROW -->
     <div class="links-row">
       <a class="apogea-link-btn" href="https://www.patreon.com/Apogea" target="_blank" rel="noopener">
-        <span class="apogea-link-label">PATREON</span>
+        <!-- Patreon SVG icon -->
+        <span class="apogea-link-icon" aria-hidden="true">
+          <svg viewBox="0 0 50 50" width="100%" height="100%">
+            <circle cx="35" cy="15" r="10" fill="#fff"/>
+            <rect x="7" y="7" width="7" height="36" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="apogea-link-label">Patreon</span>
       </a>
       <a class="apogea-link-btn" href="https://discord.gg/H9Pc26Exr6" target="_blank" rel="noopener">
-        <span class="apogea-link-label">DISCORD</span>
+        <!-- Discord SVG icon -->
+        <span class="apogea-link-icon" aria-hidden="true">
+          <svg viewBox="0 0 71 55" width="100%" height="100%">
+            <path d="M60.104 4.552A58.16 58.16 0 0 0 46.852.8a.112.112 0 0 0-.118.056c-2.048 3.633-4.096 8.32-5.616 12.032-6.656-1.024-13.312-1.024-19.968 0-1.52-3.776-3.584-8.399-5.616-12.032A.115.115 0 0 0 15.883.8 58.12 58.12 0 0 0 2.632 4.552a.105.105 0 0 0-.048.04C.25 8.58-.32 12.608.06 16.592c.008.082.06.16.132.2 8.176 6.008 16.144 9.664 23.976 12.096a.12.12 0 0 0 .131-.04c1.84-2.518 3.488-5.18 4.864-7.984a.112.112 0 0 1 .202 0c1.376 2.804 3.024 5.466 4.864 7.984a.12.12 0 0 0 .132.04c7.848-2.432 15.816-6.088 23.976-12.096a.12.12 0 0 0 .053-.2zM23.728 31.328c-2.368 0-4.304-2.192-4.304-4.88 0-2.688 1.92-4.88 4.304-4.88s4.304 2.208 4.304 4.88c0 2.688-1.92 4.88-4.304 4.88zm23.552 0c-2.368 0-4.304-2.192-4.304-4.88 0-2.688 1.92-4.88 4.304-4.88s4.304 2.208 4.304 4.88c0 2.688-1.92 4.88-4.304 4.88z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="apogea-link-label">Discord</span>
       </a>
     </div>
     <!-- /LINKS ROW -->
