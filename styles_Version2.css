@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('MyFont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  font-family: 'MyCustomFont', Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  background: #222;
+  transition: background-image 0.5s;
+}
+
+#backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.7) blur(2px);
+  opacity: 1;
+  transition: opacity 0.5s;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(15, 15, 20, 0.5);
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #fff;
+  text-align: center;
+}
+
+.timers {
+  background: rgba(40, 40, 55, 0.6);
+  border-radius: 24px;
+  padding: 48px 32px;
+  margin-top: 40px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: inline-block;
+}
+
+.timer-label {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  letter-spacing: 1px;
+  margin-bottom: 0.3em;
+}
+
+.timer-value {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 1.1em;
+  color: #60f2d4;
+  text-shadow: 0 2px 8px #3338;
+}
+
+@media (max-width: 600px) {
+  .timers {
+    padding: 24px 8px;
+  }
+  .timer-value {
+    font-size: 2rem;
+  }
+}

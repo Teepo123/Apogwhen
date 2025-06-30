@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Next Playtest Timers</title>
+  <style>
+    @font-face {
+      font-family: 'MyFont';
+      src: url('MyFont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'MyFont', sans-serif !important;
+      background: #222 url('apogeabackground.png') center center / cover no-repeat fixed !important;
+      overflow: hidden;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 15, 20, 0.33);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .centered-content {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      text-align: center;
+    }
+    .title-image-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+      margin-bottom: 0.2vw;
+      margin-top: -7vw;
+      z-index: 3;
+    }
+    .title-image {
+      display: block;
+      margin: 0 auto;
+      max-width: 64vw;
+      max-height: 14vw;
+      width: auto;
+      height: auto;
+      filter:
+        drop-shadow(-4px -4px 0 #000)
+        drop-shadow(4px -4px 0 #000)
+        drop-shadow(-4px 4px 0 #000)
+        drop-shadow(4px 4px 0 #000)
+        drop-shadow(0 0 8px #000);
+    }
+    .main-header {
+      color: #ffe94d;
+      font-size: 3.1vw;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.7vw;
+      margin-top: 0;
+      line-height: 1.09;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow:
+        -5px -5px 0 #000,
+         5px -5px 0 #000,
+        -5px  5px 0 #000,
+         5px  5px 0 #000,
+         0 0 6px #f0e13077,
+         0 1px 1px #fff5,
+         0 0 2px #f0e130,
+         0 0 6px #fff3;
+      background: rgba(20,20,20,0.03);
+      border-radius: 12px;
+      padding: 0.07em 0.34em 0.11em 0.34em;
+      max-width: 98vw;
+      box-sizing: border-box;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .timers-wrapper {
+      margin-top: 0.4vw;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1vw;
+      align-items: center;
+      width: 100vw;
+    }
+    .timer-section {
+      width: 100vw;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0.1vw;
+    }
+    .retro-timer {
+      font-size: 2.3vw;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow:
+        -4px -4px 0 #000,
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000,
+         0 0 4px #f0e13088,
+         0 0 1px #fff,
+         0 0 1px #f0e13066;
+      font-family: 'MyFont', sans-serif;
+      line-height: 1.08;
+      display: inline-block;
+      text-align: center;
+      user-select: none;
+      min-width: 12ch;
+      max-width: 96vw;
+      box-sizing: border-box;
+      background: rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 0.08em 0.08em 0.07em 0.08em;
+      margin-bottom: 0;
+      margin-top: 0.1vw;
+      white-space: nowrap;
+      transition: min-width 0.2s;
+    }
+    .timer-block {
+      display: inline-block;
+      text-align: center;
+      margin-left: 0.17em;
+      margin-right: 0;
+    }
+    .timer-label-inline {
+      font-size: 1em;
+      font-family: 'MyFont', sans-serif;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+      text-shadow:
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000,
+         0 0 4px #f0e13088,
+         0 0 1px #fff,
+         0 0 1px #f0e13066;
+      margin-right: 0.11em;
+      margin-left: 0.02em;
+    }
+    .timer-value {
+      display: inline-block;
+      min-width: 2ch;
+      color: #fff;
+      vertical-align: middle;
+      text-align: right;
+      font-size: 1em;
+      font-family: 'MyFont', sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-shadow:
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000,
+         0 0 4px #f0e13088,
+         0 0 1px #fff,
+         0 0 1px #f0e13066;
+      margin-left: 0.11em;
+    }
+    .timer-colon {
+      margin: 0 0.13em;
+      color: #fff;
+      font-size: 1em;
+      font-weight: 700;
+      text-shadow:
+        -2px -2px 0 #000,
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000;
+      vertical-align: middle;
+    }
+    .timer-months, .timer-days, .timer-hh, .timer-mm, .timer-ss { min-width: 2ch; }
+    .timer-words { display: none; }
+    .its-up {
+      font-family: 'MyFont', sans-serif;
+      font-size: 10vw;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.09em;
+      margin: 0.3em 0 0 0;
+      padding: 0;
+      animation: flashYellowWhite 1s infinite;
+      text-shadow:
+        -8px -8px 0 #000,
+         8px -8px 0 #000,
+        -8px  8px 0 #000,
+         8px  8px 0 #000,
+         0 0 60px #ffe94d,
+         0 2px 2px #fff5,
+         0 0 12px #f0e130,
+         0 0 30px #fff3;
+    }
+    @keyframes flashYellowWhite {
+      0%, 100% {
+        color: #fff;
+        text-shadow:
+          -8px -8px 0 #000,
+           8px -8px 0 #000,
+          -8px  8px 0 #000,
+           8px  8px 0 #000,
+           0 0 60px #ffe94d,
+           0 2px 2px #fff5,
+           0 0 12px #f0e130,
+           0 0 30px #fff3;
+        background: transparent;
+      }
+      50% {
+        color: #ffe94d;
+        text-shadow:
+          -8px -8px 0 #000,
+           8px -8px 0 #000,
+          -8px  8px 0 #000,
+           8px  8px 0 #000,
+           0 0 80px #fff,
+           0 0 30px #f0e130,
+           0 0 90px #ffe94d;
+        background: transparent;
+      }
+    }
+    @media (max-width: 800px) {
+      .title-image { max-width: 87vw; max-height: 19vw; }
+      .main-header { font-size: 5vw;}
+      .retro-timer { font-size: 3.2vw;}
+      .its-up { font-size: 17vw;}
+    }
+    @media (max-width: 480px) {
+      .title-image { max-width: 98vw; max-height: 27vw; }
+      .main-header { font-size: 8vw; padding: 0.04em 0.1em;}
+      .retro-timer { font-size: 4vw;}
+      .its-up { font-size: 23vw;}
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="centered-content" id="main-content">
+    <div class="title-image-wrapper">
+      <img src="title.png" alt="Title" class="title-image" />
+    </div>
+    <div class="main-header">NEXT PLAYTEST IN</div>
+    <div class="timers-wrapper" id="timers-wrapper">
+      <div class="timer-section">
+        <div class="retro-timer" id="timer-1m"></div>
+        <span class="timer-words" id="timer-1m-words"></span>
+      </div>
+      <div class="timer-section">
+        <div class="retro-timer" id="timer-3m"></div>
+        <span class="timer-words" id="timer-3m-words"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Always use UTC for calculations
+    function diffMonths(date1, date2) {
+      var years = date2.getUTCFullYear() - date1.getUTCFullYear();
+      var months = date2.getUTCMonth() - date1.getUTCMonth();
+      var totalMonths = years * 12 + months;
+      if (date2.getUTCDate() < date1.getUTCDate()) totalMonths--;
+      return totalMonths;
+    }
+    function addMonthsUTC(date, months) {
+      var d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()));
+      d.setUTCMonth(d.getUTCMonth() + months);
+      return d;
+    }
+    function getTimerParts(targetDate, now) {
+      if (now > targetDate) return {months:null, days:'00', hh:'00', mm:'00', ss:'00', monthsNum:0, daysNum:0, hoursNum:0, minutesNum:0, secondsNum:0};
+      var months = diffMonths(now, targetDate);
+      if (months < 1) months = null;
+      var afterMonths = months !== null ? addMonthsUTC(now, months) : now;
+      if (afterMonths > targetDate) {
+        afterMonths = addMonthsUTC(now, months-1);
+        months = (months !== null) ? months-1 : null;
+      }
+      var remainingMs = targetDate.getTime() - afterMonths.getTime();
+      var remainingS = Math.floor(remainingMs/1000);
+      var days = Math.floor(remainingS / 86400);
+      remainingS -= days * 86400;
+      var hours = Math.floor(remainingS / 3600);
+      remainingS -= hours * 3600;
+      var minutes = Math.floor(remainingS / 60);
+      remainingS -= minutes * 60;
+      var seconds = remainingS;
+      return {
+        months: months,
+        days: days.toString().padStart(2,'0'),
+        hh: hours.toString().padStart(2,'0'),
+        mm: minutes.toString().padStart(2,'0'),
+        ss: seconds.toString().padStart(2,'0'),
+        monthsNum: months === null ? 0 : months,
+        daysNum: days,
+        hoursNum: hours,
+        minutesNum: minutes,
+        secondsNum: seconds
+      };
+    }
+    // Timer targets (from 2025-06-01 UTC 00:00:00)
+    const playtestStart = new Date(Date.UTC(2025, 5, 1, 0, 0, 0));
+    const oneMonthLater = new Date(Date.UTC(2025, 6, 1, 0, 0, 0));
+    const threeMonthsLater = new Date(Date.UTC(2025, 8, 1, 0, 0, 0));
+
+    function pluralLabel(val, word) {
+      return val === 1 ? word : word + 's';
+    }
+
+    // Timer as HTML, hiding months/days/hours/minutes if 0, labels BEFORE the numbers, singular/plural, and spacing per spec
+    function formatTimer(parts) {
+      let out = '';
+      let any = false;
+      function block(label, value, className) {
+        return `<span class="timer-block"><span class="timer-label-inline">${label}</span><span class="timer-value ${className}">${value}</span></span>`;
+      }
+      function colon() { return `<span class="timer-colon">:</span>`; }
+      if (parts.months !== null && parts.months > 0) {
+        out += block(pluralLabel(parts.months, "Month"), parts.months, 'timer-months');
+        any = true;
+      }
+      if ((parts.days !== "00" || any) && parts.days !== "00") {
+        if (any) out += colon();
+        out += block(pluralLabel(parts.daysNum, "Day"), parts.days, 'timer-days');
+        any = true;
+      }
+      if ((parts.hh !== "00" || any) && parts.hh !== "00") {
+        if (any) out += colon();
+        out += block(pluralLabel(parts.hoursNum, "Hour"), parts.hh, 'timer-hh');
+        any = true;
+      }
+      if ((parts.mm !== "00" || any) && parts.mm !== "00") {
+        if (any) out += colon();
+        out += block(pluralLabel(parts.minutesNum, "Minute"), parts.mm, 'timer-mm');
+        any = true;
+      }
+      // Always show seconds
+      if (any) out += colon();
+      out += block(pluralLabel(parts.secondsNum, "Second"), parts.ss, 'timer-ss');
+      return out;
+    }
+
+    function setTimerElements(timerId, timerWordsId, parts) {
+      const timer = document.getElementById(timerId);
+      if (!timer) return;
+      timer.innerHTML = formatTimer(parts);
+    }
+
+    function showItsUp() {
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = `<div class="its-up">IT'S UP</div>`;
+    }
+
+    function updateTimers() {
+      // Always calculate in UTC to avoid timezone issues
+      const now = new Date();
+      const nowUTC = new Date(Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours(),
+        now.getUTCMinutes(),
+        now.getUTCSeconds()
+      ));
+      // If current time is after or equal to threeMonthsLater, show "IT'S UP"
+      if (nowUTC >= threeMonthsLater) {
+        showItsUp();
+      } else {
+        setTimerElements('timer-1m', 'timer-1m-words', getTimerParts(oneMonthLater, nowUTC));
+        setTimerElements('timer-3m', 'timer-3m-words', getTimerParts(threeMonthsLater, nowUTC));
+      }
+    }
+
+    // Start ticking
+    updateTimers();
+    setInterval(updateTimers, 1000);
+  </script>
+</body>
+</html>
